@@ -1,0 +1,1 @@
+/Applications/Postgres.app/Contents/Versions/9.6/bin/postgres "-D" "/Users/alsu/Documents/code/DC2017/transport-app/transport-app/data/db" "-p" "5432"

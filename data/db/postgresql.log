@@ -1,0 +1,41 @@
+LOG:  database system was shut down at 2017-10-19 13:05:00 CDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+FATAL:  role "alsu" does not exist
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2017-10-19 13:05:10 CDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
+STATEMENT:  CREATE EXTENSION postgis;
+	-- Enable Topology
+	CREATE EXTENSION postgis_topology;
+	-- Enable PostGIS Advanced 3D 
+	-- and other geoprocessing algorithms
+	-- sfcgal not available with all distributions
+	CREATE EXTENSION postgis_sfcgal;
+	-- fuzzy matching needed for Tiger
+	CREATE EXTENSION fuzzystrmatch;
+	-- rule based standardizer
+	CREATE EXTENSION address_standardizer;
+	-- example rule data set
+	CREATE EXTENSION address_standardizer_data_us;
+	-- Enable US Tiger Geocoder
+	CREATE EXTENSION postgis_tiger_geocoder;
+	
+ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
+STATEMENT:  CREATE EXTENSION postgis_sfcgal;
+	
+ERROR:  required extension "postgis" is not installed
+HINT:  Use CREATE EXTENSION ... CASCADE to install required extensions too.
+STATEMENT:  CREATE EXTENSION postgis_tiger_geocoder;
+	
+ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
+STATEMENT:  CREATE EXTENSION postgis_sfcgal;
+	
