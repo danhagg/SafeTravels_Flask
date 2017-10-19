@@ -39,3 +39,92 @@ STATEMENT:  CREATE EXTENSION postgis_tiger_geocoder;
 ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
 STATEMENT:  CREATE EXTENSION postgis_sfcgal;
 	
+ERROR:  cannot drop view geography_columns because extension postgis requires it
+HINT:  You can drop extension postgis instead.
+STATEMENT:  DROP VIEW IF EXISTS "public"."geography_columns" CASCADE;
+	DROP VIEW IF EXISTS "public"."geometry_columns" CASCADE;
+	DROP TABLE IF EXISTS "public"."us_rules" CASCADE;
+	DROP TABLE IF EXISTS "public"."us_lex" CASCADE;
+	DROP TABLE IF EXISTS "public"."us_gaz" CASCADE;
+	DROP VIEW IF EXISTS "public"."raster_overviews" CASCADE;
+	DROP VIEW IF EXISTS "public"."raster_columns" CASCADE;
+	DROP TABLE IF EXISTS "public"."spatial_ref_sys" CASCADE;
+	
+ERROR:  cannot drop view geography_columns because extension postgis requires it
+HINT:  You can drop extension postgis instead.
+STATEMENT:  DROP VIEW "public"."geography_columns";
+	DROP VIEW "public"."geometry_columns";
+	DROP TABLE "public"."us_rules";
+	DROP TABLE "public"."us_lex";
+	DROP TABLE "public"."us_gaz";
+	DROP VIEW "public"."raster_overviews";
+	DROP VIEW "public"."raster_columns";
+	DROP TABLE "public"."spatial_ref_sys";
+	
+ERROR:  cannot drop table us_rules because extension address_standardizer_data_us requires it
+HINT:  You can drop extension address_standardizer_data_us instead.
+STATEMENT:  DROP TABLE "public"."us_rules";
+	DROP TABLE "public"."us_lex";
+	DROP TABLE "public"."us_gaz";
+	DROP TABLE "public"."spatial_ref_sys";
+	
+ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
+STATEMENT:  -- Enable PostGIS (includes raster)
+	CREATE EXTENSION postgis;
+	-- Enable Topology
+	CREATE EXTENSION postgis_topology;
+	-- Enable PostGIS Advanced 3D 
+	-- and other geoprocessing algorithms
+	-- sfcgal not available with all distributions
+	CREATE EXTENSION postgis_sfcgal;
+	-- fuzzy matching needed for Tiger
+	CREATE EXTENSION fuzzystrmatch;
+	-- rule based standardizer
+	CREATE EXTENSION address_standardizer;
+	-- example rule data set
+	CREATE EXTENSION address_standardizer_data_us;
+	-- Enable US Tiger Geocoder
+	CREATE EXTENSION postgis_tiger_geocoder;
+ERROR:  could not open extension control file "/Applications/Postgres.app/Contents/Versions/9.6/share/postgresql/extension/postgis_sfcgal.control": No such file or directory
+STATEMENT:  CREATE EXTENSION postgis_sfcgal;
+ERROR:  extension "postgis_sfcgal" does not exist
+STATEMENT:  ALTER EXTENSION postgis UPDATE;
+	ALTER EXTENSION postgis_sfcgal UPDATE;
+	ALTER EXTENSION postgis_topology UPDATE;
+	ALTER EXTENSION postgis_tiger_geocoder UPDATE;
+	ALTER EXTENSION pgrouting UPDATE;
+ERROR:  extension "postgis_tiger_geocoder" does not exist
+STATEMENT:  ALTER EXTENSION postgis_topology UPDATE;
+	ALTER EXTENSION postgis_tiger_geocoder UPDATE;
+	ALTER EXTENSION pgrouting UPDATE;
+	
+ERROR:  extension "pgrouting" does not exist
+STATEMENT:  ALTER EXTENSION pgrouting UPDATE;
+	
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2017-10-19 14:43:51 CDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  extension "postgis_sfcgal" does not exist
+STATEMENT:  
+	ALTER EXTENSION postgis UPDATE;
+	ALTER EXTENSION postgis_sfcgal UPDATE;
+	ALTER EXTENSION postgis_topology UPDATE;
+	ALTER EXTENSION postgis_tiger_geocoder UPDATE;
+	ALTER EXTENSION pgrouting UPDATE;
+ERROR:  extension "postgis_sfcgal" does not exist
+STATEMENT:  ALTER EXTENSION postgis_sfcgal UPDATE;
+ERROR:  extension "postgis_tiger_geocoder" does not exist
+STATEMENT:  ALTER EXTENSION postgis_tiger_geocoder UPDATE;
+ERROR:  extension "pgrouting" does not exist
+STATEMENT:  ALTER EXTENSION pgrouting UPDATE;
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
