@@ -9,21 +9,22 @@ from main import app
 # Run the following to update then refresh your .bashrc:
 # $ echo "source `which activate.sh`" >> ~/.bashrc
 # $ source ~/.bashrc
-from models import Result
+# from models import Result
 
 
 def main():
 
-
     @app.route('/', methods=('GET', 'POST'))
     def hello():
-        return render_template ('index.html')
+        return render_template('index.html')
 
 
     @app.route('/<name>')
     def hello_name(name):
         return "Hello {}!".format(name)
 
+    app.run(port=5000, debug=True)
+
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    main()
