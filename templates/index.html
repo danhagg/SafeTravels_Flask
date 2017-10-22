@@ -1,63 +1,182 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <meta charset="utf-8">
+
+    <title>Transport</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <div id="top">
+
+    </div>
   </head>
   <body>
     <div id="map"></div>
-    <script src="/static/axios.min.js"></script>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: new google.maps.LatLng(29.7604,-95.3698),
-          mapTypeId: 'terrain'
-        });
 
-        axios.get('/static/Metro_Bus_Stops.geojson')
-            .then(function (response) {
-                load_geojson(response.data);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-        // Create a <script> tag and set the USGS URL as the source.
-        //var script = document.createElement('script');
-        // This example uses a local copy of the GeoJSON stored at
-        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-        //script.src ='static/Metro_Bus_Stops.geojson'; //'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-        //document.getElementsByTagName('head')[0].appendChild(script);
-      }
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
-      // Loop through the results array and place a marker for each
+      <a class="navbar-brand mb-0 h1" href="#top">Transport</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#top">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          Tagline here?
+        </span>
+      </div>
+    </nav>
+
+    <div class="wrapper container-fluid"><!--map wrapper with collapsable menu-->
+
+
+      <div class="row">
+        <nav id="sidebar" class="">
+          <!-- Sidebar map menu -->
+          <div class="sidebar-header">
+            <h3>Map Options</h3>
+          </div>
+
+          <!-- Sidebar links, soon to be form -->
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input">
+              Crime data
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input">
+              Walking paths
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-info">Update</button>
+        </nav>
+
+        <div class="col" id="content" style="padding: 0;">
+
+          <button type="button" id="sidebarCollapse" class="btn btn-info">
+            Map Menu
+          </button>
+
+          <div id="map"></div>
+
+        </div>
+
+      </div>
+
+      </div><!--End wrapper-->
+
+
+    </div><!--end wrapper-->
+
+    <div class="container-fluid">
+
+      <div class="row" id="about">
+
+        <div class="col-4">
+          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
+        </div>
+
+        <div class="col-8">
+          <p>
+            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt ne, maluisset vituperata vim eu.
+          </p>
+          <p>
+            Alia homero persius in vis, at vituperata complectitur mei. Justo partem ex vim. An has nulla omnium contentiones. Te possit iisque noluisse pro, meis labores forensibus ad nec. Per fugit lobortis at, in graeco cotidieque ius, vel veniam impedit laboramus ad.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="row" id="contact">
+
+        <div class="col-9">
+          <p>
+            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt ne, maluisset vituperata vim eu.
+          </p>
+
+        </div>
+
+        <div class="col-3">
+          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>
+          &copy; Transport 2017
+        </p>
+      </footer>
+
+    </div><!--end container-->
+
+    <!--bootstrap javascripts-->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!-- scripts -->
+      <script src="/static/axios.min.js"></script>
+      <script>
+        var map;
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: new google.maps.LatLng(29.7604,-95.3698),
+            mapTypeId: 'terrain'
+          });
+
+          axios.get('/static/Metro_Bus_Stops.geojson')
+              .then(function (response) {
+                  load_geojson(response.data);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+        }
+
+       // Loop through the results array and place a marker for each
       // set of coordinates.
       function load_geojson (results) {
           console.log(results);
-        for (var i = 0; i < results.features.length; i++) {
-          var coords = results.features[i].geometry.coordinates;
-          var latLng = new google.maps.LatLng(coords[1],coords[0]);
-          var marker = new google.maps.Marker({
-            position: latLng,
-            map: map
-          });
-        }
+          map.data.addGeoJson(results);
       }
+
+      </script>
+       <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap&libraries=visualization">
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap">
-    </script>
+      <script>
+        $(document).ready(function () {
+          $('#sidebarCollapse').click(function () {
+            console.log('sidebar toggle');
+            $('#sidebar').toggleClass('active');
+          });
+
+        });
+      </script>
   </body>
 </html>
