@@ -1,70 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
 
-    <title>Transport</title>
+<head>
+  <meta charset="utf-8">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title>Transport</title>
 
-    <!-- custom css -->
-    <link rel="stylesheet" href="/static/css/style.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
 
-    <div id="top">
+  <!-- custom css -->
+  <link rel="stylesheet" href="/static/css/style.css">
 
-    </div>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div id="top">
 
-      <a class="navbar-brand mb-0 h1" href="#top">Transport</a>
+  </div>
+</head>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body>
 
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#top">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          Tagline here?
-        </span>
-      </div>
-    </nav>
-
-    <div class="wrapper container-fluid"><!--map wrapper with collapsable menu-->
-
+  <div class="wrapper container-fluid"><!--map wrapper with collapsable menu-->
 
       <div class="row">
-        <nav id="sidebar">
+        <nav id="sidebar" class="">
           <!-- Sidebar map menu -->
           <div class="sidebar-header">
             <h3>Map Options</h3>
           </div>
 
-          <hr>
-
           <!-- Sidebar links, soon to be form -->
           <div class="form-check">
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              Crime data
+              <input type="checkbox" class="form-check-input"> Crime data
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              Walking paths
+              <input type="checkbox" class="form-check-input"> Walking paths
             </label>
           </div>
 
@@ -83,98 +56,141 @@
 
       </div>
 
-      </div><!--End wrapper-->
+    </div><!--End wrapper-->
 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"><!--navbar-->
 
-    </div><!--end wrapper-->
+    <a class="navbar-brand mb-0 h1" href="#top">Transport</a>
 
-    <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="row" id="about">
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#top">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Tagline here?
+      </span>
+    </div>
+  </nav>
 
-        <div class="col-4">
-          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
-        </div>
+  <div class="container-fluid"><!--remainder of page-->
 
-        <div class="col-8">
-          <p>
-            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt ne, maluisset vituperata vim eu.
-          </p>
-          <p>
-            Alia homero persius in vis, at vituperata complectitur mei. Justo partem ex vim. An has nulla omnium contentiones. Te possit iisque noluisse pro, meis labores forensibus ad nec. Per fugit lobortis at, in graeco cotidieque ius, vel veniam impedit laboramus ad.
-          </p>
+    <div class="row" id="about"><!--about section-->
 
-        </div>
-
+      <div class="col-4">
+        <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
       </div>
 
-      <div class="row" id="contact">
-
-        <div class="col-9">
-          <p>
-            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt ne, maluisset vituperata vim eu.
-          </p>
-
-        </div>
-
-        <div class="col-3">
-          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
-
-        </div>
-
-      </div>
-
-      <hr>
-
-      <footer>
+      <div class="col-8">
         <p>
-          &copy; Transport 2017
+          Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum
+          albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus
+          ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt
+          ne, maluisset vituperata vim eu.
         </p>
-      </footer>
+        <p>
+          Alia homero persius in vis, at vituperata complectitur mei. Justo partem ex vim. An has nulla omnium contentiones. Te possit
+          iisque noluisse pro, meis labores forensibus ad nec. Per fugit lobortis at, in graeco cotidieque ius, vel veniam
+          impedit laboramus ad.
+        </p>
 
-    </div><!--end container-->
+      </div>
 
-    <!--bootstrap javascripts-->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <!-- scripts -->
-      <script src="/static/axios.min.js"></script>
-      <script>
-        var map;
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(29.7604,-95.3698),
-            mapTypeId: 'terrain'
-          });
+    </div>
 
-          axios.get('/static/Metro_Bus_Stops.geojson')
-              .then(function (response) {
-                  load_geojson(response.data);
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-        }
+    <div class="row" id="contact"><!--contact section-->
 
-         // Loop through the results array and place a marker for each
-        // set of coordinates.
-        function load_geojson (results) {
-            console.log(results);
-            map.data.addGeoJson(results);
-        }
+      <div class="col-9">
+        <p>
+          Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum
+          albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus
+          ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt
+          ne, maluisset vituperata vim eu.
+        </p>
 
-      </script>
-       <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap&libraries=visualization">
-      </script>
-      <script>
-        $(document).ready(function () {
-          $('#sidebarCollapse').click(function () {
-            console.log('sidebar toggle');
-            $('#sidebar').toggleClass('active');
-          });
+      </div>
+
+      <div class="col-3">
+        <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <footer>
+      <p>
+        &copy; Safe Travels 2017
+      </p>
+    </footer>
+
+  </div><!--end container-->
+
+  <!--bootstrap javascripts-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <!-- scripts -->
+  <script src="/static/axios.min.js"></script>
+
+  <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(29.7604, -95.3698),
+        mapTypeId: 'terrain'
+      });
+
+      map.addListener('bounds_changed', function() {
+        initialViewPort = map.getBounds();
+        minx = initialViewPort.b.b;
+        maxx = initialViewPort.b.f;
+        miny = initialViewPort.f.b;
+        maxy = initialViewPort.f.f;
+
+        axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+        .then(function (response) {
+          load_geojson(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      });
+    }
+
+    // Loop through the results array and place a marker for each
+    // set of coordinates.
+    function load_geojson(results) {
+      console.log(results);
+      map.data.addGeoJson(results);
+    }
+
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap&libraries=visualization">
+  </script>
+  <script>
+      $(document).ready(function () {
+        $('#sidebarCollapse').click(function () {
+          console.log('sidebar toggle');
+          $('#sidebar').toggleClass('active');
 
           $('a[href^="#"]').click(function() {
               // target element id
@@ -196,6 +212,9 @@
               $('body, html').animate({scrollTop: pos});
           });
         });
-      </script>
-  </body>
+
+      });
+  </script>
+</body>
+
 </html>
