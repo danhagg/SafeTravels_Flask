@@ -157,6 +157,7 @@
     crossorigin="anonymous"></script>
   <!-- scripts -->
   <script src="/static/axios.min.js"></script>
+
   <script>
     var map;
     function initMap() {
@@ -166,13 +167,22 @@
         mapTypeId: 'terrain'
       });
 
-      axios.get('/crimes')
+      map.addListener('bounds_changed', function() {
+        initialViewPort = map.getBounds();
+        minx = initialViewPort.b.b;
+        maxx = initialViewPort.b.f;
+        miny = initialViewPort.f.b;
+        maxy = initialViewPort.f.f;
+
+        axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
         .then(function (response) {
           load_geojson(response.data);
         })
         .catch(function (error) {
           console.log(error);
         });
+
+      });
     }
 
     // Loop through the results array and place a marker for each
@@ -190,6 +200,9 @@
         $('#sidebarCollapse').click(function () {
           console.log('sidebar toggle');
           $('#sidebar').toggleClass('active');
+
+
+
         });
 
       });

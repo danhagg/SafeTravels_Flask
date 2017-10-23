@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import os
 import db
 import json
@@ -19,7 +19,18 @@ def main():
 
     @app.route('/crimes')
     def crimes():
-        results = db.crimes(engine, limit=10)
+        minx = request.args.get('minx')
+        miny = request.args.get('miny')
+        maxx = request.args.get('maxx')
+        maxy = request.args.get('maxy')
+        bounds = None
+        if minx is not None or miny is not None or maxx is not None or maxy is not None:
+            if minx is None or miny is None or maxx is None or maxy is None:
+                raise ValueError("Incomplete bounds")
+            bounds = (minx, miny, maxx, maxy)
+        results = db.crimes(engine, limit=10, bounds=bounds)
+        if results.get("features") is None:
+            results["features"] = []
         return json.dumps(results)
 
     app.run(port=5000, debug=True)
