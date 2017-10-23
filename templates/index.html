@@ -10,7 +10,7 @@
 
     <!-- custom css -->
     <link rel="stylesheet" href="/static/css/style.css">
-    
+
     <div id="top">
 
     </div>
@@ -46,11 +46,13 @@
 
 
       <div class="row">
-        <nav id="sidebar" class="">
+        <nav id="sidebar">
           <!-- Sidebar map menu -->
           <div class="sidebar-header">
             <h3>Map Options</h3>
           </div>
+
+          <hr>
 
           <!-- Sidebar links, soon to be form -->
           <div class="form-check">
@@ -156,17 +158,17 @@
                 });
         }
 
-       // Loop through the results array and place a marker for each
-      // set of coordinates.
-      function load_geojson (results) {
-          console.log(results);
-          map.data.addGeoJson(results);
-      }
-        
+         // Loop through the results array and place a marker for each
+        // set of coordinates.
+        function load_geojson (results) {
+            console.log(results);
+            map.data.addGeoJson(results);
+        }
+
       </script>
        <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap&libraries=visualization">
-    </script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc&callback=initMap&libraries=visualization">
+      </script>
       <script>
         $(document).ready(function () {
           $('#sidebarCollapse').click(function () {
@@ -174,6 +176,25 @@
             $('#sidebar').toggleClass('active');
           });
 
+          $('a[href^="#"]').click(function() {
+              // target element id
+              var id = $(this).attr('href');
+
+              // target element
+              var $id = $(id);
+              if ($id.length === 0) {
+                  return;
+              }
+
+              // prevent standard hash navigation (avoid blinking in IE)
+              event.preventDefault();
+
+              // top position relative to the document
+              var pos = $id.offset().top;
+
+              // animated top scrolling
+              $('body, html').animate({scrollTop: pos});
+          });
         });
       </script>
   </body>
