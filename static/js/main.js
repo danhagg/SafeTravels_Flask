@@ -1,4 +1,5 @@
 var map;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
@@ -36,25 +37,6 @@ $(document).ready(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
 
-    $('a[href^="#"]').click(function() {
-        // target element id
-        var id = $(this).attr('href');
-
-        // target element
-        var $id = $(id);
-        if ($id.length === 0) {
-            return;
-        }
-
-        // prevent standard hash navigation (avoid blinking in IE)
-        event.preventDefault();
-
-        // top position relative to the document
-        var pos = $id.offset().top;
-
-        // animated top scrolling
-        $('body, html').animate({scrollTop: pos});
-    });
   });
 
 });
