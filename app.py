@@ -7,6 +7,9 @@ import json
 # hint:
 # source .env
 
+PORT = int(os.environ.get('PORT', '5000'))
+
+
 def main():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
@@ -15,7 +18,6 @@ def main():
     @app.route('/', methods=('GET', 'POST'))
     def hello():
         return render_template('index.html')
-
 
     @app.route('/crimes')
     def crimes():
@@ -33,7 +35,7 @@ def main():
             results["features"] = []
         return json.dumps(results)
 
-    app.run(port=5000, debug=True)
+    app.run(port=PORT, debug=True)
 
 
 if __name__ == '__main__':
