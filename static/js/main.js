@@ -44,12 +44,50 @@ function initMap() {
     axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
     .then(function (response) {
       load_geojson(response.data);
+      // if (response.data.type == 'Bus Route') {
+      //
+      // } else {
+      //
+      // }
     })
     .catch(function (error) {
       console.log(error);
     });
+
+    // var requests = [axios.get(), axios.get()];
+    // Promise.all(requests).then(function (responses) {
+    //
+    // })
   });
-}
+
+  map.data.setStyle(function (feature) {
+    console.log(feature);
+
+    if (feature.getProperty('offense') == 'Theft') {
+      return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
+    }
+
+    return {};
+  });
+
+  map.data.addListener('click', function(event){
+    var infoWindow = new google.maps.InfoWindow({
+      content: event.feature.getProperty('offense')
+    });
+    console.log(event);
+
+    infoWindow.open(map);
+    infoWindow.setPosition(event.latLng);
+  });
+
+
+// function drop() {
+//   for (var i =0; i < markerArray.length; i++) {
+//     setTimeout(function() {
+//       addMarkerMethod();
+//     }, i * 200);
+//   }
+// }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
