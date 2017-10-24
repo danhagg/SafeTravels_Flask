@@ -98,9 +98,22 @@ function initMap() {
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('You are here');
+            infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
+
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
+                .then(function(response){
+                    console.log(response)
+                     ws_address = response.data.results[0].formatted_address
+
+                    // call walk score api here
+                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                })
+                .catch(function(err){
+                    console.error(err)
+                })
+
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -110,13 +123,11 @@ function initMap() {
         }
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
-    map: map,
-    radius: 20,
-    opacity: 1
-  });
-
-
+       data: getPoints(),
+       map: map,
+       radius: 20,
+       opacity: 1
+     });
 
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
@@ -128,23 +139,14 @@ function initMap() {
     axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
     .then(function (response) {
       load_geojson(response.data);
-      // if (response.data.type == 'Bus Route') {
-      //
-      // } else {
-      //
-      // }
     })
     .catch(function (error) {
       console.log(error);
     });
-
-    // var requests = [axios.get(), axios.get()];
-    // Promise.all(requests).then(function (responses) {
-    //
-    // })
   });
 
-  map.data.setStyle(function (feature) {
+
+map.data.setStyle(function (feature) {
     console.log(feature);
 
     if (feature.getProperty('offense') == 'Theft') {
@@ -153,6 +155,7 @@ function initMap() {
 
     return {};
   });
+
 
   map.data.addListener('click', function(event){
     var infoWindow = new google.maps.InfoWindow({
@@ -163,13 +166,6 @@ function initMap() {
     infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
-
-// function drop() {
-//   for (var i =0; i < markerArray.length; i++) {
-//     setTimeout(function() {
-//       addMarkerMethod();
-//     }, i * 200);
-//   }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -187,11 +183,13 @@ function load_geojson(results) {
   map.data.addGeoJson(results);
 }
 
+
 $(document).ready(function () {
   $('#sidebarCollapse').click(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
   });
+  // Lara's code here
 });
 
 function toggleHeatmap() {
