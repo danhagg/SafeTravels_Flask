@@ -80,14 +80,13 @@ function initMap() {
     infoWindow.setPosition(event.latLng);
   });
 
-
 // function drop() {
 //   for (var i =0; i < markerArray.length; i++) {
 //     setTimeout(function() {
 //       addMarkerMethod();
 //     }, i * 200);
 //   }
-// }
+}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
