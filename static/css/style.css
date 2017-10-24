@@ -4,6 +4,18 @@ html, body {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#violent, #nonviolent {
+  list-style-type: none;
+  margin: 5px;
+  padding: 10px;
+}
+
 #map {
   height: 675px;
   padding: 0;

@@ -30,7 +30,7 @@ def main():
             if minx is None or miny is None or maxx is None or maxy is None:
                 raise ValueError("Incomplete bounds")
             bounds = (minx, miny, maxx, maxy)
-        results = db.crimes(engine, limit=10, bounds=bounds)
+        results = db.crimes(engine, limit=50, bounds=bounds)
         if results.get("features") is None:
             results["features"] = []
         return json.dumps(results)

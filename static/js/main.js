@@ -39,7 +39,6 @@ function initMap() {
                     console.error(err)
                 })
 
-
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
