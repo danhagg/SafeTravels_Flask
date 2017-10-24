@@ -1,8 +1,14 @@
-var map, heatmap, infoWindow;
+var map, heatmap, infoWindow
+var ws_address;
+var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
+// var ws_address = '3302 Canal St., Houston, TX';
+var ws_format = 'tall';
+var ws_width = '300';
+var ws_height = '350';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 10,
+    zoom: 12,
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain'
   });
@@ -16,16 +22,30 @@ function initMap() {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('You are here.');
             infoWindow.open(map);
             map.setCenter(pos);
+
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
+                .then(function(response){
+                    console.log(response)
+                     ws_address = response.data.results[0].formatted_address
+
+                    // call walk score api here
+                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                })
+                .catch(function(err){
+                    console.error(err)
+                })
+
+
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
         } else {
           // Browser doesn't support Geolocation
+          console.log('no geo')
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
