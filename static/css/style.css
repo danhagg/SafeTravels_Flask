@@ -10,12 +10,6 @@ ul {
   padding: 0;
 }
 
-#violent, #nonviolent {
-  list-style-type: none;
-  margin: 5px;
-  padding: 10px;
-}
-
 #map {
   height: 675px;
   padding: 0;
@@ -50,8 +44,8 @@ ul {
 
 #sidebarCollapse {
   position: absolute;
-  top: 50px;
-  left: 10px;
+  top: 10px;
+  left: 110px;
   z-index: 100;
 }
 
