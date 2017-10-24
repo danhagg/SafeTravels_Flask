@@ -25,6 +25,14 @@ function initMap() {
   });
 }
 
+function drop() {
+  for (var i =0; i < markerArray.length; i++) {
+    setTimeout(function() {
+      addMarkerMethod();
+    }, i * 200);
+  }
+}
+
 // Loop through the results array and place a marker for each
 // set of coordinates.
 function load_geojson(results) {
