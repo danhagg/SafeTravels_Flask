@@ -144,7 +144,7 @@ function initMap() {
       console.log(error);
     });
   });
-}
+
 
 map.data.setStyle(function (feature) {
     console.log(feature);
@@ -156,6 +156,7 @@ map.data.setStyle(function (feature) {
     return {};
   });
 
+
   map.data.addListener('click', function(event){
     var infoWindow = new google.maps.InfoWindow({
       content: event.feature.getProperty('offense')
@@ -165,6 +166,7 @@ map.data.setStyle(function (feature) {
     infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
+}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -181,11 +183,13 @@ function load_geojson(results) {
   map.data.addGeoJson(results);
 }
 
+
 $(document).ready(function () {
   $('#sidebarCollapse').click(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
   });
+  // Lara's code here
 });
 
 function toggleHeatmap() {
