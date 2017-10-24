@@ -124,7 +124,9 @@ function initMap() {
 
   heatmap = new google.maps.visualization.HeatmapLayer({
        data: getPoints(),
-       map: map
+       map: map,
+       radius: 20,
+       opacity: 1
      });
 
   map.addListener('bounds_changed', function() {
@@ -143,6 +145,26 @@ function initMap() {
     });
   });
 }
+
+map.data.setStyle(function (feature) {
+    console.log(feature);
+
+    if (feature.getProperty('offense') == 'Theft') {
+      return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
+    }
+
+    return {};
+  });
+
+  map.data.addListener('click', function(event){
+    var infoWindow = new google.maps.InfoWindow({
+      content: event.feature.getProperty('offense')
+    });
+    console.log(event);
+
+    infoWindow.open(map);
+    infoWindow.setPosition(event.latLng);
+  });
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
