@@ -1,4 +1,10 @@
 var map, heatmap, infoWindow;
+var ws_address;
+var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
+// var ws_address = '3302 Canal St., Houston, TX';
+var ws_format = 'tall';
+var ws_width = '300';
+var ws_height = '350';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
