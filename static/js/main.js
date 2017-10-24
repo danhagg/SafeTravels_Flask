@@ -21,7 +21,6 @@ function initMap() {
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
-<<<<<<< HEAD
 
             axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
                 .then(function(response){
@@ -35,8 +34,6 @@ function initMap() {
                     console.error(err)
                 })
 
-=======
->>>>>>> parent of f53d674... added geolocation to walkscore app
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
