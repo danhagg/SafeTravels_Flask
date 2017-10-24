@@ -149,6 +149,13 @@ function initMap() {
     .catch(function (error) {
       console.log(error);
     });
+    axios.get(`/bikes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   });
 
 
