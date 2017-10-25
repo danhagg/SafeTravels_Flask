@@ -1,4 +1,10 @@
 var map, heatmap, infoWindow;
+var ws_address;
+var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
+// var ws_address = '3302 Canal St., Houston, TX';
+var ws_format = 'tall';
+var ws_width = '300';
+var ws_height = '350';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -98,9 +104,22 @@ function initMap() {
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('You are here');
+            infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
+
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
+                .then(function(response){
+                    console.log(response)
+                     ws_address = response.data.results[0].formatted_address
+
+                    // call walk score api here
+                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                })
+                .catch(function(err){
+                    console.error(err)
+                })
+
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -110,11 +129,11 @@ function initMap() {
         }
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
-    map: map,
-    radius: 20,
-    opacity: 1
-  });
+       data: getPoints(),
+       map: map,
+       radius: 20,
+       opacity: 1
+     });
 
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
@@ -130,9 +149,31 @@ function initMap() {
     .catch(function (error) {
       console.log(error);
     });
+    axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    axios.get(`/busstops?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    axios.get(`/busroutes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   });
 
-  map.data.setStyle(function (feature) {
+
+map.data.setStyle(function (feature) {
     console.log(feature);
 
     if (feature.getProperty('offense') == 'Theft') {
@@ -141,6 +182,7 @@ function initMap() {
 
     return {};
   });
+
 
   map.data.addListener('click', function(event){
     var infoWindow = new google.maps.InfoWindow({
@@ -151,13 +193,6 @@ function initMap() {
     infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
-
-  // function drop() {
-  //   for (var i =0; i < markerArray.length; i++) {
-  //     setTimeout(function() {
-  //       addMarkerMethod();
-  //     }, i * 200);
-  //   }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -175,6 +210,7 @@ function load_geojson(results) {
   console.log(results);
   map.data.addGeoJson(results);
 }
+
 
 $(document).ready(function () {
   $('#sidebarCollapse').click(function () {
