@@ -6,6 +6,9 @@ var ws_format = 'tall';
 var ws_width = '300';
 var ws_height = '350';
 var FEATURE_TYPE;
+var crimes = 'off';
+var bike = 'off';
+var busRoute = 'off';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -137,6 +140,81 @@ function initMap() {
      });
 
 
+  map.data.setStyle(function (feature) {
+     if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
+       return {
+         icon: '/static/images/non.png'
+       }
+     }
+     else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
+       return {
+         icon: '/static/images/violent_crimes.png'
+       }
+     }
+     else if (feature.getProperty('type') == 'bike') {
+       return {
+         strokeColor: '#00C7FF',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Blue') {
+       return {
+         strokeColor: '#0067FF',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Red') {
+       return {
+         strokeColor: '#FF0061',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Green') {
+       return {
+         strokeColor: '#C7FF00',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'ParkAndRide') {
+       return {
+         strokeColor: '#FFA900',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+
+     return {};
+   });
+
+  map.data.addListener('addfeature', function (event) {
+     event.feature.setProperty('type', FEATURE_TYPE);
+  });
+
+  map.data.addListener('click', function(event){
+   var infoWindow = new google.maps.InfoWindow({
+     content: (
+       "<strong>Offense:</strong> " +
+       event.feature.getProperty('offense') +
+       "<br>" +
+       "<strong>Location:</strong> " +
+       event.feature.getProperty('premise_type')
+      //  "<br>" +
+      //  "<strong>Occurred:</strong> " +
+      //  event.feature.getProperty('time_begun')
+    ),
+     pixelOffset: new google.maps.Size(0, -40)
+   });
+   console.log(event);
+
+   infoWindow.open(map);
+   console.log(event.latLng.lat());
+   infoWindow.setPosition(event.latLng);
+  });
+
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
     minx = initialViewPort.b.b;
@@ -144,74 +222,16 @@ function initMap() {
     miny = initialViewPort.f.b;
     maxy = initialViewPort.f.f;
 
-  map.data.setStyle(function (feature) {
-    if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
-      return {
-        icon: '/static/images/non.png'
-      }
+    if (crimes == 'on') {
+      add_crimes();
     }
-    else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
-      return {
-        icon: '/static/images/violent_crimes.png'
-      }
+    if (bike == 'on') {
+      add_bike();
     }
-    else if (feature.getProperty('type') == 'bike') {
-      return {
-        strokeColor: '#00C7FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }
+    if (busRoute == 'on') {
+      add_busroutes();
     }
-    else if (feature.getProperty('color') == 'Blue') {
-      return {
-        strokeColor: '#0067FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }
-    }
-    else if (feature.getProperty('color') == 'Red') {
-      return {
-        strokeColor: '#FF0061',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }
-    }
-    else if (feature.getProperty('color') == 'Green') {
-      return {
-        strokeColor: '#C7FF00',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }
-    }
-    else if (feature.getProperty('color') == 'ParkAndRide') {
-      return {
-        strokeColor: '#FFA900',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      }
-    }
-
-    return {};
-  });
-
-  map.data.addListener('addfeature', function (event) {
-      event.feature.setProperty('type', FEATURE_TYPE);
-  });
-
-  map.data.addListener('click', function(event){
-    var infoWindow = new google.maps.InfoWindow({
-      content: event.feature.getProperty('offense')
-    });
-    console.log(event);
-
-    infoWindow.open(map);
-    infoWindow.setPosition(event.latLng);
-  });
-
-    // add_crimes();
-    // add_bike();
     // add_busstops();
-    // add_busroutes();
   });
 }
 
@@ -324,13 +344,17 @@ $(document).ready(function () {
   });
 
   $('#crime').on('click', toggle (function (){
+      crimes = 'on';
       return add_crimes();
   }, function (){
+      crimes = 'off';
       return hideCrimes();
   }));
   $('#bikeways').on('click', toggle (function (){
+      bike = 'on';
       return add_bike();
   }, function (){
+      bike = 'off';
       return hideBike();
   }));
   $('#bus_stops').on('click', toggle (function (){
@@ -339,8 +363,10 @@ $(document).ready(function () {
       return hideBusStops();
   }));
   $('#bus_routes').on('click', toggle (function (){
+      busRoute = 'on';
       return add_busroutes();
   }, function (){
+      busRoute = 'off';
       return hideBusRoutes();
   }));
   $('#walkscore_button').click(function () {
