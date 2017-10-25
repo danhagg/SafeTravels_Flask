@@ -135,6 +135,7 @@ function initMap() {
        opacity: 1
      });
 
+
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
     minx = initialViewPort.b.b;
@@ -193,6 +194,10 @@ map.data.setStyle(function (feature) {
     infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
+}
+
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
