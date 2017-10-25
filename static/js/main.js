@@ -149,6 +149,27 @@ function initMap() {
     .catch(function (error) {
       console.log(error);
     });
+    axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    axios.get(`/busstops?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    axios.get(`/busroutes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   });
 
 
