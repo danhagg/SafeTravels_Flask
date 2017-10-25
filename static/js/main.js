@@ -132,7 +132,7 @@ function initMap() {
        data: getPoints(),
        map: map,
        radius: 20,
-       opacity: 1
+       opacity: .5
      });
 
 
@@ -174,7 +174,7 @@ function initMap() {
   });
 
 
-map.data.setStyle(function (feature) {
+  map.data.setStyle(function (feature) {
     console.log(feature);
 
     if (feature.getProperty('offense') == 'Theft') {
@@ -221,6 +221,10 @@ $(document).ready(function () {
   $('#sidebarCollapse').click(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
+  });
+  $('#walkscore_button').click(function () {
+    console.log('walkscore toggle');
+    $('#walkscore_container').toggleClass('active');
   });
 
   $('#all_crime').click(function(event) {
