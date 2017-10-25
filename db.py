@@ -20,7 +20,7 @@ def crimes(engine, limit=None, bounds=None):
                                 , ST_AsGeoJSON(lg.wkb_geometry)::json As geometry
                                 , row_to_json(lp) As properties
                             FROM crime As lg
-                                    INNER JOIN (SELECT offense, time_begun, ogc_fid FROM crime) As lp
+                                    INNER JOIN (SELECT offense, time_begun, premise_type, ogc_fid FROM crime) As lp
                                     ON lg.ogc_fid = lp.ogc_fid
                                     {bounds_clause} {limit_clause})
                             As f )
