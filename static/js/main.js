@@ -5,6 +5,7 @@ var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
 var ws_format = 'tall';
 var ws_width = '300';
 var ws_height = '350';
+var FEATURE_TYPE;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -142,45 +143,25 @@ function initMap() {
     miny = initialViewPort.f.b;
     maxy = initialViewPort.f.f;
 
-    axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-    .then(function (response) {
-      load_geojson(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-    .then(function (response) {
-      load_geojson(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    axios.get(`/busstops?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-    .then(function (response) {
-      load_geojson(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    axios.get(`/busroutes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-    .then(function (response) {
-      load_geojson(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // add_crimes();
+    // add_bike();
+    // add_busstops();
+    // add_busroutes();
   });
 
 
 map.data.setStyle(function (feature) {
-    console.log(feature);
+    //console.log(feature);
 
     if (feature.getProperty('offense') == 'Theft') {
       return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
     }
 
     return {};
+  });
+
+  map.data.addListener('addfeature', function (event) {
+      event.feature.setProperty('type', FEATURE_TYPE);
   });
 
 
@@ -206,9 +187,90 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 // Loop through the results array and place a marker for each
 // set of coordinates.
 
-function load_geojson(results) {
+function load_geojson(results, type) {
   console.log(results);
+  FEATURE_TYPE = type;
   map.data.addGeoJson(results);
+}
+
+function add_crimes () {
+    axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+   .then(function (response) {
+     crimeMapMarkers = load_geojson(response.data, 'crime');
+   })
+   .catch(function (error) {
+     console.log(error);
+   });
+}
+
+function add_bike() {
+    axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data, 'bike');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function add_busstops() {
+    axios.get(`/busstops?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data, 'busstops');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function add_busroutes() {
+    axios.get(`/busroutes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data, 'busroutes');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+var toggle = function (a, b) {
+    var togg = false;
+    return function () {
+        // passes return value back to caller
+        return (togg = !togg) ? a() : b();
+    };
+};
+
+function hideCrimes() {
+    map.data.forEach(function (thing) {
+        if (thing.getProperty('type') == 'crime') {
+            map.data.remove(thing);
+        }
+    })
+}
+
+function hideBike() {
+    map.data.forEach(function (thing) {
+        if (thing.getProperty('type') == 'bike') {
+            map.data.remove(thing);
+        }
+    })
+}
+
+function hideBusStops() {
+    map.data.forEach(function (thing) {
+        if (thing.getProperty('type') == 'busstops') {
+            map.data.remove(thing);
+        }
+    })
+}
+
+function hideBusRoutes() {
+    map.data.forEach(function (thing) {
+        if (thing.getProperty('type') == 'busroutes') {
+            map.data.remove(thing);
+        }
+    })
 }
 
 
@@ -217,8 +279,24 @@ $(document).ready(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
   });
-
-  $('#all_crime').click(function(event) {
-    heatmap.data.clear();
-  });
+  $('#all_crime').on('click', toggle (function (){
+      return add_crimes();
+  }, function (){
+      return hideCrimes();
+  }));
+  $('#').on('click', toggle (function (){
+      return add_bike();
+  }, function (){
+      return hideBike();
+  }));
+  $('#').on('click', toggle (function (){
+      return add_busstops();
+  }, function (){
+      return hideBusStops();
+  }));
+  $('#').on('click', toggle (function (){
+      return add_busroutes();
+  }, function (){
+      return hideBusRoutes();
+  }));
 });
