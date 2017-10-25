@@ -177,12 +177,26 @@ function initMap() {
   map.data.setStyle(function (feature) {
     console.log(feature);
 
-    if (feature.getProperty('offense') == 'Theft') {
-      return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
+    if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
+      return {
+        icon: '/static/images/non.png'
+      }
     }
-
+    else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
+      return {
+        icon: '/static/images/violent_crimes.png'
+      }
+    }
+    else if (feature.getProperty('bike') == 'BIKE') {
+      return {
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      }
+    }
     return {};
   });
+
 
 
   map.data.addListener('click', function(event){
