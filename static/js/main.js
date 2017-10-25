@@ -291,21 +291,21 @@ $(document).ready(function () {
   }, function (){
       return hideCrimes();
   }));
-  // $('#').on('click', toggle (function (){
-  //     return add_bike();
-  // }, function (){
-  //     return hideBike();
-  // }));
-  // $('#').on('click', toggle (function (){
-  //     return add_busstops();
-  // }, function (){
-  //     return hideBusStops();
-  // }));
-  // $('#').on('click', toggle (function (){
-  //     return add_busroutes();
-  // }, function (){
-  //     return hideBusRoutes();
-  // }));
+  $('#bikeways').on('click', toggle (function (){
+      return add_bike();
+  }, function (){
+      return hideBike();
+  }));
+  $('#bus_stops').on('click', toggle (function (){
+      return add_busstops();
+  }, function (){
+      return hideBusStops();
+  }));
+  $('#bus_routes').on('click', toggle (function (){
+      return add_busroutes();
+  }, function (){
+      return hideBusRoutes();
+  }));
   $('#walkscore_button').click(function () {
       console.log('walkscore toggle');
       $('#walkscore_container').toggleClass('active');
