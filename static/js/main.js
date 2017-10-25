@@ -144,38 +144,39 @@ function initMap() {
     miny = initialViewPort.f.b;
     maxy = initialViewPort.f.f;
 
+    map.data.setStyle(function (feature) {
+        //console.log(feature);
+
+        if (feature.getProperty('offense') == 'Theft') {
+          return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
+        }
+
+        return {};
+      });
+
+      map.data.addListener('addfeature', function (event) {
+          event.feature.setProperty('type', FEATURE_TYPE);
+      });
+
+
+      map.data.addListener('click', function(event){
+        var infoWindow = new google.maps.InfoWindow({
+          content: event.feature.getProperty('offense')
+        });
+        console.log(event);
+
+        infoWindow.open(map);
+        infoWindow.setPosition(event.latLng);
+      });
+
     // add_crimes();
     // add_bike();
     // add_busstops();
     // add_busroutes();
-  });
 
-
-map.data.setStyle(function (feature) {
-    //console.log(feature);
-
-    if (feature.getProperty('offense') == 'Theft') {
-      return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
-    }
-
-    return {};
-  });
-
-  map.data.addListener('addfeature', function (event) {
-      event.feature.setProperty('type', FEATURE_TYPE);
-  });
-
-
-  map.data.addListener('click', function(event){
-    var infoWindow = new google.maps.InfoWindow({
-      content: event.feature.getProperty('offense')
-    });
-    console.log(event);
-
-    infoWindow.open(map);
-    infoWindow.setPosition(event.latLng);
   });
 }
+
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
@@ -290,20 +291,23 @@ $(document).ready(function () {
   }, function (){
       return hideCrimes();
   }));
-  $('#').on('click', toggle (function (){
-      return add_bike();
-  }, function (){
-      return hideBike();
-  }));
-  $('#').on('click', toggle (function (){
-      return add_busstops();
-  }, function (){
-      return hideBusStops();
-  }));
-  $('#').on('click', toggle (function (){
-      return add_busroutes();
-  }, function (){
-      return hideBusRoutes();
-  }));
-
+  // $('#').on('click', toggle (function (){
+  //     return add_bike();
+  // }, function (){
+  //     return hideBike();
+  // }));
+  // $('#').on('click', toggle (function (){
+  //     return add_busstops();
+  // }, function (){
+  //     return hideBusStops();
+  // }));
+  // $('#').on('click', toggle (function (){
+  //     return add_busroutes();
+  // }, function (){
+  //     return hideBusRoutes();
+  // }));
+  $('#walkscore_button').click(function () {
+      console.log('walkscore toggle');
+      $('#walkscore_container').toggleClass('active');
+   });
 });
