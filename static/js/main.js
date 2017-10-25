@@ -9,7 +9,7 @@ var FEATURE_TYPE;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 15,
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain',
     styles: [
@@ -204,7 +204,7 @@ function initMap() {
     });
     console.log(event);
 
-    infoWindow.open(map, marker);
+    infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
 

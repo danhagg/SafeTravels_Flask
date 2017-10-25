@@ -62,11 +62,10 @@ def main():
             if minx is None or miny is None or maxx is None or maxy is None:
                 raise ValueError("Incomplete bounds")
             bounds = (minx, miny, maxx, maxy)
-        results = db.bike(engine, limit=50, bounds=bounds)
+        results = db.bike(engine, bounds=bounds)
         if results.get("features") is None:
             results["features"] = []
         return json.dumps(results)
-
 
     @app.route('/busroutes')
     def busroutes():
@@ -84,8 +83,6 @@ def main():
         if results.get("features") is None:
             results["features"] = []
         return json.dumps(results)
-
-
 
     app.run(host='0.0.0.0', port=PORT, debug=True)
 
