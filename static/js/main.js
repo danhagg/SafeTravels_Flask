@@ -213,9 +213,14 @@ function load_geojson(results) {
 
 
 $(document).ready(function () {
-  $('#sidebarCollapse').click(function () {
+  $('#map_menu_button').click(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
+  });
+
+  $('#walkscore_button').click(function () {
+    console.log('walkscore toggle');
+    $('#ws-walkscore-tile').toggleClass('active');
   });
 
   $('#all_crime').click(function(event) {
