@@ -204,7 +204,7 @@ function initMap() {
     });
     console.log(event);
 
-    infoWindow.open(map, marker);
+    infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
 
@@ -212,7 +212,6 @@ function initMap() {
     // add_bike();
     // add_busstops();
     // add_busroutes();
-
   });
 }
 
