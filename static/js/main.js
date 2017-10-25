@@ -6,10 +6,13 @@ var ws_format = 'tall';
 var ws_width = '300';
 var ws_height = '350';
 var FEATURE_TYPE;
+var crimes = 'off';
+var bike = 'off';
+var busRoute = 'off';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 15,
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain',
     styles: [
@@ -105,7 +108,7 @@ function initMap() {
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('You are here.');
             infoWindow.open(map);
             map.setCenter(pos);
 
@@ -115,7 +118,7 @@ function initMap() {
                      ws_address = response.data.results[0].formatted_address
 
                     // call walk score api here
-                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                    $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
                 })
                 .catch(function(err){
                     console.error(err)
@@ -137,6 +140,80 @@ function initMap() {
      });
 
 
+  map.data.setStyle(function (feature) {
+     if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
+       return {
+         icon: '/static/images/non.png'
+       }
+     }
+     else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
+       return {
+         icon: '/static/images/violent_crimes.png'
+       }
+     }
+     else if (feature.getProperty('type') == 'bike') {
+       return {
+         strokeColor: '#00C7FF',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Blue') {
+       return {
+         strokeColor: '#0067FF',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Red') {
+       return {
+         strokeColor: '#FF0061',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'Green') {
+       return {
+         strokeColor: '#C7FF00',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+     else if (feature.getProperty('color') == 'ParkAndRide') {
+       return {
+         strokeColor: '#FFA900',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       }
+     }
+
+     return {};
+   });
+
+  map.data.addListener('addfeature', function (event) {
+     event.feature.setProperty('type', FEATURE_TYPE);
+  });
+
+  map.data.addListener('click', function(event){
+   var infoWindow = new google.maps.InfoWindow({
+     content: (
+       "<strong>Offense:</strong> " +
+       event.feature.getProperty('offense') +
+       "<br>" +
+       "<strong>Location:</strong> " +
+       event.feature.getProperty('premise_type')
+      //  "<br>" +
+      //  "<strong>Occurred:</strong> " +
+      //  event.feature.getProperty('time_begun')
+    ),
+     pixelOffset: new google.maps.Size(0, -40)
+   });
+   console.log(event);
+
+    infoWindow.open(map);
+    infoWindow.setPosition(event.latLng);
+  });
+
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
     minx = initialViewPort.b.b;
@@ -144,39 +221,18 @@ function initMap() {
     miny = initialViewPort.f.b;
     maxy = initialViewPort.f.f;
 
-    map.data.setStyle(function (feature) {
-        //console.log(feature);
-
-        if (feature.getProperty('offense') == 'Theft') {
-          return {icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
-        }
-
-        return {};
-      });
-
-      map.data.addListener('addfeature', function (event) {
-          event.feature.setProperty('type', FEATURE_TYPE);
-      });
-
-
-      map.data.addListener('click', function(event){
-        var infoWindow = new google.maps.InfoWindow({
-          content: event.feature.getProperty('offense')
-        });
-        console.log(event);
-
-        infoWindow.open(map);
-        infoWindow.setPosition(event.latLng);
-      });
-
-    // add_crimes();
-    // add_bike();
+    if (crimes == 'on') {
+      add_crimes();
+    }
+    if (bike == 'on') {
+      add_bike();
+    }
+    if (busRoute == 'on') {
+      add_busroutes();
+    }
     // add_busstops();
-    // add_busroutes();
-
   });
 }
-
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
@@ -286,26 +342,32 @@ $(document).ready(function () {
     $('#sidebar').toggleClass('active');
   });
 
-  $('#all_crime').on('click', toggle (function (){
+  $('#crime').on('click', toggle (function (){
+      crimes = 'on';
       return add_crimes();
   }, function (){
+      crimes = 'off';
       return hideCrimes();
   }));
-  // $('#').on('click', toggle (function (){
-  //     return add_bike();
-  // }, function (){
-  //     return hideBike();
-  // }));
-  // $('#').on('click', toggle (function (){
-  //     return add_busstops();
-  // }, function (){
-  //     return hideBusStops();
-  // }));
-  // $('#').on('click', toggle (function (){
-  //     return add_busroutes();
-  // }, function (){
-  //     return hideBusRoutes();
-  // }));
+  $('#bikeways').on('click', toggle (function (){
+      bike = 'on';
+      return add_bike();
+  }, function (){
+      bike = 'off';
+      return hideBike();
+  }));
+  $('#bus_stops').on('click', toggle (function (){
+      return add_busstops();
+  }, function (){
+      return hideBusStops();
+  }));
+  $('#bus_routes').on('click', toggle (function (){
+      busRoute = 'on';
+      return add_busroutes();
+  }, function (){
+      busRoute = 'off';
+      return hideBusRoutes();
+  }));
   $('#walkscore_button').click(function () {
       console.log('walkscore toggle');
       $('#walkscore_container').toggleClass('active');
