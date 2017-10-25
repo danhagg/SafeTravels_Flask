@@ -68,7 +68,7 @@ def bike(engine, limit=None, bounds=None):
                             , ST_AsGeoJSON(lg.wkb_geometry)::json As geometry
                             , row_to_json(lp) As properties
                         FROM bike As lg
-                        INNER JOIN (SELECT ogc_fid, full_name, bicycle, b_type_exist,length_mi, hbp_status
+                        INNER JOIN (SELECT *
                             FROM bike) As lp
                         ON lg.ogc_fid = lp.ogc_fid
                                 {bounds_clause} {limit_clause})
@@ -92,7 +92,7 @@ def busroutes(engine, limit=None, bounds=None):
                             , ST_AsGeoJSON(lg.wkb_geometry)::json As geometry
                             , row_to_json(lp) As properties
                         FROM busroutes As lg
-                        INNER JOIN (SELECT id, routenum, routename, color, servType, dest_1, dest_2, dest_3
+                        INNER JOIN (SELECT *
                             FROM busroutes) As lp
                         ON lg.id = lp.id
                         {bounds_clause} {limit_clause})
