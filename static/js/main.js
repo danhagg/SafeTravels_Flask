@@ -12,7 +12,7 @@ var busRoute = 'off';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 15,
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain',
     styles: [
@@ -118,7 +118,7 @@ function initMap() {
                      ws_address = response.data.results[0].formatted_address
 
                     // call walk score api here
-                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                    $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
                 })
                 .catch(function(err){
                     console.error(err)
@@ -210,9 +210,8 @@ function initMap() {
    });
    console.log(event);
 
-   infoWindow.open(map);
-   console.log(event.latLng.lat());
-   infoWindow.setPosition(event.latLng);
+    infoWindow.open(map);
+    infoWindow.setPosition(event.latLng);
   });
 
   map.addListener('bounds_changed', function() {
