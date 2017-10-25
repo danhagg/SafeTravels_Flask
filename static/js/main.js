@@ -133,8 +133,9 @@ function initMap() {
        data: getPoints(),
        map: map,
        radius: 20,
-       opacity: 1
+       opacity: .5
      });
+
 
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
@@ -174,6 +175,10 @@ map.data.setStyle(function (feature) {
     infoWindow.open(map);
     infoWindow.setPosition(event.latLng);
   });
+}
+
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -279,6 +284,7 @@ $(document).ready(function () {
     console.log('sidebar toggle');
     $('#sidebar').toggleClass('active');
   });
+
   $('#all_crime').on('click', toggle (function (){
       return add_crimes();
   }, function (){
@@ -299,4 +305,5 @@ $(document).ready(function () {
   }, function (){
       return hideBusRoutes();
   }));
+
 });

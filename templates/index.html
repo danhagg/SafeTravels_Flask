@@ -12,7 +12,6 @@
 
     <!-- custom css -->
     <link rel="stylesheet" href="/static/css/style.css">
-    <style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style>
 
     <div id="top">
 
@@ -20,6 +19,13 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"><!--navbar-->
+
+      <a class="navbar-brand mb-0 h1" href="#top">Safe Travels</a>
+      <span class="navbar-text">
+        &copy; 2017
+      </span>
+    </nav>
 
     <div class="wrapper container-fluid"><!--map wrapper with collapsable menu-->
 
@@ -33,22 +39,27 @@
             <hr>
 
             <!-- Sidebar links, soon to be form -->
-            <button type="button" id="all_crime" class="btn btn-info">
+            <button type="button" id="all_crime" class="btn btn-info btn-sm" onclick="toggleHeatmap()">
               Crime Heat Map
             </button>
-            <button type="button" id="nonviolent" class="btn btn-info">
-              Non-violent Crimes
+            <button type="button" id="nonviolent_on" class="btn btn-info btn-sm">
+              ON - Non-violent
             </button>
-            <button type="button" id="violent" class="btn btn-info">
+            <button type="button" id="nonviolent_off" class="btn btn-info btn-sm">
+              OFF - Non-violent
+            </button>
+
+            <button type="button" id="violent" class="btn btn-info btn-sm">
               Violent Crimes
             </button>
-            <button type="button" id="bikeways" class="btn btn-info">
+
+            <button type="button" id="bikeways" class="btn btn-info btn-sm">
               Bikeways
             </button>
-            <button type="button" id="bus_routes" class="btn btn-info">
+            <button type="button" id="bus_routes" class="btn btn-info btn-sm">
               Bus Routes
             </button>
-            <button type="button" id="bus_stops" class="btn btn-info">
+            <button type="button" id="bus_stops" class="btn btn-info btn-sm">
               Bus Stops
             </button>
 
@@ -56,99 +67,24 @@
 
           <div class="col" id="content" style="padding: 0;">
 
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <button type="button" id="sidebarCollapse" class="btn btn-light btn-sm">
               Map Menu
+            </button>
+            <button type="button" id="walkscore_button" class="btn btn-light btn-sm">
+              Get Walkscore
             </button>
 
             <div id="map"></div>
-            <div id='ws-walkscore-tile'></div>
+
+            <div id="walkscore_container">
+              <div id='ws-walkscore-tile'></div>
+            </div>
 
           </div>
 
         </div>
 
       </div><!--End wrapper-->
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"><!--navbar-->
-
-      <a class="navbar-brand mb-0 h1" href="#top">Safe Travels</a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#top">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          Tagline here?
-        </span>
-      </div>
-    </nav>
-
-    <div class="container-fluid"><!--remainder of page-->
-
-      <div class="row" id="about"><!--about section-->
-
-        <div class="col-4">
-          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
-        </div>
-
-        <div class="col-8">
-          <p>
-            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum
-            albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus
-            ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt
-            ne, maluisset vituperata vim eu.
-          </p>
-          <p>
-            Alia homero persius in vis, at vituperata complectitur mei. Justo partem ex vim. An has nulla omnium contentiones. Te possit
-            iisque noluisse pro, meis labores forensibus ad nec. Per fugit lobortis at, in graeco cotidieque ius, vel veniam
-            impedit laboramus ad.
-          </p>
-
-        </div>
-
-      </div>
-
-      <div class="row" id="contact"><!--contact section-->
-
-        <div class="col-9">
-          <p>
-            Lorem ipsum dolor sit amet, cum ne tation putent ornatus, appetere probatus ei has, nec te persius diceret. Ea sit alterum
-            albucius sapientem, sed ad esse liber saepe, ei mea noster ocurreret. No has iriure bonorum, iuvaret laboramus
-            ne pro, sea voluptua percipit ei. Viderer partiendo et sit, cu usu equidem graecis dissentias. Nam option reprehendunt
-            ne, maluisset vituperata vim eu.
-          </p>
-
-        </div>
-
-        <div class="col-3">
-          <img class="image" src="http://via.placeholder.com/300x300" alt="Placeholder">
-
-        </div>
-
-      </div>
-
-      <hr>
-
-      <footer>
-        <p>
-          &copy; Safe Travels 2017
-        </p>
-      </footer>
-
-    </div><!--end container-->
 
     <!--bootstrap javascripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
