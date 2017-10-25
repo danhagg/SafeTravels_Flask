@@ -115,7 +115,7 @@ function initMap() {
                      ws_address = response.data.results[0].formatted_address
 
                     // call walk score api here
-                    $.getScript( "http://www.walkscore.com/tile/show-walkscore-tile.php" );
+                    $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
                 })
                 .catch(function(err){
                     console.error(err)
