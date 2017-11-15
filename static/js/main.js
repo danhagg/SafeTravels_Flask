@@ -1,3 +1,19 @@
+// var colors = require("./color.js")
+
+function makeColor (id) {
+  var r = 255;
+  var g = 0;
+  var b = 0;
+  // var rgb = '';
+  if (id > 127) {
+    return 'rgb(255, 0, 0)';
+  }
+  r = r - id * 2;
+  g = 0;
+  b = b + id * 2;
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 var map, heatmap, infoWindow;
 var ws_address;
 var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
@@ -254,27 +270,40 @@ function initMap() {
          strokeWeight: 2
        }
      }
-     else if (feature.getProperty('color') == 'Red') {
+
+     else if (feature.getProperty('routenum')) {
+       let strokeCol = makeColor(feature.getProperty('id'));
+       console.log(strokeCol);
+       console.log(feature.getProperty('id'));
        return {
-         strokeColor: '#FF0061',
+         strokeColor: strokeCol,
          strokeOpacity: 1.0,
          strokeWeight: 2
        }
      }
-     else if (feature.getProperty('color') == 'Green') {
-       return {
-         strokeColor: '#C7FF00',
-         strokeOpacity: 1.0,
-         strokeWeight: 2
-       }
-     }
-     else if (feature.getProperty('color') == 'ParkAndRide') {
-       return {
-         strokeColor: '#FFA900',
-         strokeOpacity: 1.0,
-         strokeWeight: 2
-       }
-     }
+     //
+     //
+     // else if (feature.getProperty('color') == 'Red') {
+     //   return {
+     //     strokeColor: '#FF0061',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
+     // else if (feature.getProperty('color') == 'Green') {
+     //   return {
+     //     strokeColor: '#C7FF00',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
+     // else if (feature.getProperty('color') == 'ParkAndRide') {
+     //   return {
+     //     strokeColor: '#FFA900',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
 
      return {};
    });
