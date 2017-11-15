@@ -1,3 +1,31 @@
+ /*-- Global -- */
+
+.elsie {
+  font-family: 'Elsie', cursive;
+  font-size: 2em;
+}
+
+.swash {
+  font-family: 'Elsie Swash Caps', cursive;
+}
+
+.salmon-font {
+  color: #f36851;
+  color: rgb(243, 104, 81);
+}
+
+.salmon-back {
+  background-color: #f36851;
+  background-color: rgb(243, 104, 81);
+}
+
+.mustard-back {
+  background-color: #f7c648;
+  background-color: rgb(247, 198, 72);
+}
+
+ /*-- Main -- */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -10,27 +38,46 @@ ul {
   padding: 0;
 }
 
+a, a:hover {
+  text-decoration: none;
+  color: #f36851;
+}
+
+/* -- Nav -- */
+
+.nav-img {
+  height: 50px;
+  padding: 0 5px;
+}
+
+.navbar-text {
+  float: right;
+  text-align: right;
+}
+
+
+/*-- Map --*/
+
 #map {
-  height:800px;
+  height:calc(100vh - 99px);
   padding: 0;
 }
 
-.wrapper {
-  top: 55px;
-  /*display: flex;
-  align-items: stretch;*/
-}
+/*-- Sidebar --*/
 
 #content {
-  margin-top: 55px;
   position: relative;
-  /*height: 100%;*/
+}
+
+.btn-info {
+  margin: 5px 2px;
+  width: 130px;
+  text-align: center;
 }
 
 #sidebar {
   text-align: center;
   width: 0;
-  margin-top: 55px;
   overflow: hidden;
   transition: width 0.5s;
   transition-timing-function: ease;
@@ -50,6 +97,8 @@ ul {
   left: 10px;
   z-index: 100;
 }
+
+/*-- Walkscore --*/
 
 #walkscore_button {
   position: absolute;
@@ -93,18 +142,19 @@ ul {
   float:none;
   }
 
-.btn-info {
-  margin: 5px 2px;
-  width: 160px;
-  text-align: center;
+/*-- Modal --*/
+
+.modalBackground {
+  background-image: linear-gradient(to bottom, #cbdbdb 0%, #ebf0f0 100%);
 }
 
-.btn-light {
-  width: 130px;
-  text-align: center;
+/*-- Footer --*/
+footer {
+  height: 25px;
+  padding: 0 20px;
 }
 
-.navbar-text {
-  float: right;
-  text-align: right;
+footer li {
+  display: inline;
+  padding: 0 5px;
 }
