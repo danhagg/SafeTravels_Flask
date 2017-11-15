@@ -39,4 +39,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Include data for additional cities
 * Include additional data, such as bus stops, walking and hiking paths, etc.
 * Allow users to input a different location
-* Allow users to map from point A to point
+* Allow users to map from point A to point B
