@@ -2,4 +2,4 @@ flask
 psycopg2
 Flask-Migrate
 Flask-SQLAlchemy
-autoenv
+dotenv
