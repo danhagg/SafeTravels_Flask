@@ -248,12 +248,12 @@ function initMap() {
   map.data.setStyle(function (feature) {
      if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
        return {
-         icon: '/static/images/non.png'
+         icon: '/static/images/map-pin-blue.png'
        }
      }
      else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
        return {
-         icon: '/static/images/violent_crimes.png'
+         icon: '/static/images/map-pin-red.png'
        }
      }
      else if (feature.getProperty('type') == 'bike') {
