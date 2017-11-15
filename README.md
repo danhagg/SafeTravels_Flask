@@ -1,15 +1,42 @@
-# transport-app
+# SafeTravels
 
-Safe travels is a Flask-based map-oriented website for people who wish to travel through Houston, Texas, USA safely.
+SafeTravels visualizes local bus and bikeways in Houston as well as local crime data to help you navigate through the city safely.
 
-It employs the Google maps API, the walkscore API (https://www.walkscore.com/)
+From the Map Menu you can visualize Houston crime data as a heat map or as individual markers that, when clicked, provide detailed information for particular crimes. The Map Menu also allows you to visualize bus and bike route information in order determine the safest route.
 
-It also pulls data from Houston Geographic Information Service on local
-1. Bikeways
-2. Bus Routes
-3. Monthly crime data
-        
-This data is stored a postgresql with postGIS extensions to handle the data
+Finally, from the Map, click the "Get WalkScore" button to see the walk, bike, and transit score for your location, in addition to nearby amenities, such as restaurants, entertainment, and groceries.
 
-SQLAlchemy is the ORM between our sql database and our flask app
+Currently, SafeTravels only supports data for Houston, Texas, but we are working to include more cities soon.
 
+## Built With
+
+* Flask
+* Python
+* JavaScript
+* jQuery
+* PostgreSQL
+* PostGIS
+* SQLAlchemy
+* Axios
+* Google Maps API
+* WalkScore API
+
+## Authors
+
+ - [Lora Griffin](https://github.com/loragriffin)
+ - [Dan Haggerty](https://github.com/danhagg)
+ - [Alex Sulsky](https://github.com/xanlex)
+ - [Josh Westbury](https://github.com/joshwestbury)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Future Enhancements
+
+* Make the site mobile responsive
+
+* Include data for additional cities
+* Include additional data, such as bus stops, walking and hiking paths, etc.
+* Allow users to input a different location
+* Allow users to map from point A to point B

@@ -1,3 +1,19 @@
+// var colors = require("./color.js")
+
+function makeColor (id) {
+  var r = 255;
+  var g = 0;
+  var b = 0;
+  // var rgb = '';
+  if (id > 127) {
+    return 'rgb(255, 0, 0)';
+  }
+  r = r - id * 2;
+  g = 0;
+  b = b + id * 2;
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 var map, heatmap, infoWindow;
 var ws_address;
 var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
@@ -16,85 +32,174 @@ function initMap() {
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain',
     styles: [
-            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-            {
-              featureType: 'administrative.locality',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry',
-              stylers: [{color: '#38414e'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#212a37'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#9ca5b3'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry',
-              stylers: [{color: '#746855'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#1f2835'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#f3d19c'}]
-            },
-            {
-              featureType: 'transit',
-              elementType: 'geometry',
-              stylers: [{color: '#2f3948'}]
-            },
-            {
-              featureType: 'transit.station',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#515c6d'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{color: '#17263c'}]
-            }
-          ]
+      {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#bdbdbd"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#bce4d5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#cee7d3"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#ffffff"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#dadada"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#b6ddde"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      }
+    ]
   });
 
   infoWindow = new google.maps.InfoWindow;
@@ -136,19 +241,19 @@ function initMap() {
        data: getPoints(),
        map: map,
        radius: 20,
-       opacity: .5
+       opacity: .75
      });
 
 
   map.data.setStyle(function (feature) {
      if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
        return {
-         icon: '/static/images/non.png'
+         icon: '/static/images/map-pin-blue.png'
        }
      }
      else if (feature.getProperty('offense') == 'Aggravated Assault' || feature.getProperty('offense') == 'Murder' || feature.getProperty('offense') == 'Robbery' || feature.getProperty('offense') == 'Rape') {
        return {
-         icon: '/static/images/violent_crimes.png'
+         icon: '/static/images/map-pin-red.png'
        }
      }
      else if (feature.getProperty('type') == 'bike') {
@@ -165,27 +270,40 @@ function initMap() {
          strokeWeight: 2
        }
      }
-     else if (feature.getProperty('color') == 'Red') {
+
+     else if (feature.getProperty('routenum')) {
+       let strokeCol = makeColor(feature.getProperty('id'));
+       console.log(strokeCol);
+       console.log(feature.getProperty('id'));
        return {
-         strokeColor: '#FF0061',
+         strokeColor: strokeCol,
          strokeOpacity: 1.0,
          strokeWeight: 2
        }
      }
-     else if (feature.getProperty('color') == 'Green') {
-       return {
-         strokeColor: '#C7FF00',
-         strokeOpacity: 1.0,
-         strokeWeight: 2
-       }
-     }
-     else if (feature.getProperty('color') == 'ParkAndRide') {
-       return {
-         strokeColor: '#FFA900',
-         strokeOpacity: 1.0,
-         strokeWeight: 2
-       }
-     }
+     //
+     //
+     // else if (feature.getProperty('color') == 'Red') {
+     //   return {
+     //     strokeColor: '#FF0061',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
+     // else if (feature.getProperty('color') == 'Green') {
+     //   return {
+     //     strokeColor: '#C7FF00',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
+     // else if (feature.getProperty('color') == 'ParkAndRide') {
+     //   return {
+     //     strokeColor: '#FFA900',
+     //     strokeOpacity: 1.0,
+     //     strokeWeight: 2
+     //   }
+     // }
 
      return {};
    });
