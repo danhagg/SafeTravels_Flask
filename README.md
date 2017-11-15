@@ -23,10 +23,10 @@ Currently, SafeTravels only supports data for Houston, Texas, but we are working
 
 ## Authors
 
-[Lora Griffen](https://github.com/loragriffin)
-[Dan Haggerty](https://github.com/danhagg)
-[Alex Sulsky](https://github.com/xanlex)
-[Josh Westbury](https://github.com/joshwestbury)
+ - [Lora Griffen](https://github.com/loragriffin)
+ - [Dan Haggerty](https://github.com/danhagg)
+ - [Alex Sulsky](https://github.com/xanlex)
+ - [Josh Westbury](https://github.com/joshwestbury)
 
 ## License
 
