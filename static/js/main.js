@@ -28,7 +28,7 @@ var busRoute = 'off';
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
+    zoom: 11,
     center: new google.maps.LatLng(29.7604, -95.3698),
     mapTypeId: 'terrain',
     styles: [
@@ -239,11 +239,19 @@ function initMap() {
 
   heatmap = new google.maps.visualization.HeatmapLayer({
        data: getPoints(),
+       gradient: [
+         'rgba(253, 253, 253, 0)',
+         'rgba(45, 184, 186, 1)',
+         'rgba(169, 234, 77, 1)',
+         'rgba(247, 199, 73, 1)',
+         'rgba(234, 155, 43, 1)',
+         'rgba(243, 104, 81, 1)',
+         'rgba(230, 87, 58, 1)'
+       ],
        map: map,
        radius: 20,
        opacity: .75
      });
-
 
   map.data.setStyle(function (feature) {
      if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
