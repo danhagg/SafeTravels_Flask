@@ -1,5 +1,6 @@
 // var colors = require("./color.js")
 
+// Function to generate gradient of colors for each bus route
 function makeColor (id) {
   var r = 255;
   var g = 0;
@@ -14,6 +15,7 @@ function makeColor (id) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
+// Declare variables
 var map, heatmap, infoWindow;
 var ws_address;
 var ws_wsid = 'g66cb3dc63cb74226ac55ac06fa465f1f';
@@ -26,6 +28,7 @@ var crimes = 'off';
 var bike = 'off';
 var busRoute = 'off';
 
+// Google map api
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
@@ -202,40 +205,41 @@ function initMap() {
     ]
   });
 
+
   infoWindow = new google.maps.InfoWindow;
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+// Try HTML5 geolocation.
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('You are here.');
-            infoWindow.open(map);
-            map.setCenter(pos);
+    infoWindow.setPosition(pos);
+    infoWindow.setContent('You are here.');
+    infoWindow.open(map);
+    map.setCenter(pos);
 
-            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
-                .then(function(response){
-                    console.log(response)
-                     ws_address = response.data.results[0].formatted_address
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
+      .then(function(response){
+        console.log(response)
+         ws_address = response.data.results[0].formatted_address
 
-                    // call walk score api here
-                    $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
-                })
-                .catch(function(err){
-                    console.error(err)
-                })
+        // call walk score api here
+        $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
+      })
+      .catch(function(err){
+          console.error(err)
+      })
 
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+  }, function() {
+    handleLocationError(true, infoWindow, map.getCenter());
+  });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+}
 
   heatmap = new google.maps.visualization.HeatmapLayer({
        data: getPoints(),
@@ -253,6 +257,7 @@ function initMap() {
        opacity: .75
      });
 
+  // Setting markers to differentiate between different data types visually
   map.data.setStyle(function (feature) {
      if (feature.getProperty('offense') == 'Theft' || feature.getProperty('offense') == 'Burglary' || feature.getProperty('offense') == 'Auto Theft') {
        return {
@@ -271,14 +276,6 @@ function initMap() {
          strokeWeight: 2
        }
      }
-     else if (feature.getProperty('color') == 'Blue') {
-       return {
-         strokeColor: '#0067FF',
-         strokeOpacity: 1.0,
-         strokeWeight: 2
-       }
-     }
-
      else if (feature.getProperty('routenum')) {
        let strokeCol = makeColor(feature.getProperty('id'));
        console.log(strokeCol);
@@ -289,37 +286,15 @@ function initMap() {
          strokeWeight: 2
        }
      }
-     //
-     //
-     // else if (feature.getProperty('color') == 'Red') {
-     //   return {
-     //     strokeColor: '#FF0061',
-     //     strokeOpacity: 1.0,
-     //     strokeWeight: 2
-     //   }
-     // }
-     // else if (feature.getProperty('color') == 'Green') {
-     //   return {
-     //     strokeColor: '#C7FF00',
-     //     strokeOpacity: 1.0,
-     //     strokeWeight: 2
-     //   }
-     // }
-     // else if (feature.getProperty('color') == 'ParkAndRide') {
-     //   return {
-     //     strokeColor: '#FFA900',
-     //     strokeOpacity: 1.0,
-     //     strokeWeight: 2
-     //   }
-     // }
-
      return {};
    });
 
+  // Enables toggling of data
   map.data.addListener('addfeature', function (event) {
      event.feature.setProperty('type', FEATURE_TYPE);
   });
 
+  // Triggers infoWindow on click
   map.data.addListener('click', function(event){
    var infoWindow = new google.maps.InfoWindow({
      content: (
@@ -328,9 +303,6 @@ function initMap() {
        "<br>" +
        "<strong>Location:</strong> " +
        event.feature.getProperty('premise_type')
-      //  "<br>" +
-      //  "<strong>Occurred:</strong> " +
-      //  event.feature.getProperty('time_begun')
     ),
      pixelOffset: new google.maps.Size(0, -40)
    });
@@ -340,6 +312,8 @@ function initMap() {
     infoWindow.setPosition(event.latLng);
   });
 
+  // Used Google API functionality to create listeners for when map is moved
+  // When map is moved, minx, maxx, miny, maxy are updated
   map.addListener('bounds_changed', function() {
     initialViewPort = map.getBounds();
     minx = initialViewPort.b.b;
@@ -347,6 +321,7 @@ function initMap() {
     miny = initialViewPort.f.b;
     maxy = initialViewPort.f.f;
 
+    // loads data inside current bounds
     if (crimes == 'on') {
       add_crimes();
     }
@@ -356,7 +331,6 @@ function initMap() {
     if (busRoute == 'on') {
       add_busroutes();
     }
-    // add_busstops();
   });
 }
 
@@ -365,34 +339,33 @@ function toggleHeatmap() {
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-     }
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
 
-// Loop through the results array and place a marker for each
-// set of coordinates.
-
+// loading data into map
 function load_geojson(results, type) {
-  console.log(results);
   FEATURE_TYPE = type;
   map.data.addGeoJson(results);
 }
 
+// Filters data for type: crime
 function add_crimes () {
-    axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-   .then(function (response) {
-     crimeMapMarkers = load_geojson(response.data, 'crime');
+  axios.get(`/crimes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+    .then(function (response) {
+      load_geojson(response.data, 'crime');
    })
-   .catch(function (error) {
+  .catch(function (error) {
      console.log(error);
    });
 }
 
+// Filters data for type: bike
 function add_bike() {
-    axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
+  axios.get(`/bike?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
     .then(function (response) {
       load_geojson(response.data, 'bike');
     })
