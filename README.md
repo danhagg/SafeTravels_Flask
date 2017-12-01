@@ -66,10 +66,6 @@ function add_crimes () {
  - [Alex Sulsky](https://github.com/xanlex)
  - [Josh Westbury](https://github.com/joshwestbury)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Future Enhancements
 
 * Make the site mobile responsive
@@ -77,3 +73,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Include additional data, such as bus stops, walking and hiking paths, etc.
 * Allow users to input a different location
 * Allow users to map from point A to point B
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
