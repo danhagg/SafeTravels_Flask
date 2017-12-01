@@ -431,6 +431,7 @@ $(document).ready(function () {
       crimes = 'off';
       return hideCrimes();
   }));
+
   $('#bikeways').on('click', toggle (function (){
       bike = 'on';
       return add_bike();
@@ -438,6 +439,7 @@ $(document).ready(function () {
       bike = 'off';
       return hideBike();
   }));
+
   $('#bus_routes').on('click', toggle (function (){
       busRoute = 'on';
       return add_busroutes();
@@ -445,8 +447,10 @@ $(document).ready(function () {
       busRoute = 'off';
       return hideBusRoutes();
   }));
+
   $('#walkscore_button').click(function () {
       console.log('walkscore toggle');
       $('#walkscore_container').toggleClass('active');
    });
+   
 });

@@ -1,8 +1,10 @@
 # SafeTravels
 
-SafeTravels visualizes local bus and bikeways in Houston as well as local crime data to help you navigate through the city safely.
-
 ![image](static/images/safetravels.png)
+
+## About
+
+SafeTravels visualizes local bus and bikeways in Houston as well as local crime data to help you navigate through the city safely.
 
 A live demo of the app can be found [here](https://safetravels.loragriffin.com).
 
