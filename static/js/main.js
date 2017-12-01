@@ -208,38 +208,38 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
 
-// Try HTML5 geolocation.
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-    infoWindow.setPosition(pos);
-    infoWindow.setContent('You are here.');
-    infoWindow.open(map);
-    map.setCenter(pos);
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('You are here.');
+      infoWindow.open(map);
+      map.setCenter(pos);
 
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
-      .then(function(response){
-        console.log(response)
-         ws_address = response.data.results[0].formatted_address
+      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyA0fEoOYqyHqCn0k7w0IhQGjW27eFXhfvc`)
+        .then(function(response){
+          console.log(response)
+           ws_address = response.data.results[0].formatted_address
 
-        // call walk score api here
-        $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
-      })
-      .catch(function(err){
-          console.error(err)
-      })
+          // call walk score api here
+          $.getScript( "https://www.walkscore.com/tile/show-walkscore-tile.php" );
+        })
+        .catch(function(err){
+            console.error(err)
+        })
 
-  }, function() {
-    handleLocationError(true, infoWindow, map.getCenter());
-  });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-}
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+  }
 
   heatmap = new google.maps.visualization.HeatmapLayer({
        data: getPoints(),
@@ -374,16 +374,7 @@ function add_bike() {
     });
 }
 
-function add_busstops() {
-    axios.get(`/busstops?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
-    .then(function (response) {
-      load_geojson(response.data, 'busstops');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
+// Filters data for type: bus routes
 function add_busroutes() {
     axios.get(`/busroutes?minx=${minx}&maxx=${maxx}&miny=${miny}&maxy=${maxy}`)
     .then(function (response) {
@@ -394,45 +385,37 @@ function add_busroutes() {
     });
 }
 
-var toggle = function (a, b) {
-    var togg = false;
-    return function () {
-        // passes return value back to caller
-        return (togg = !togg) ? a() : b();
-    };
-};
-
 function hideCrimes() {
-    map.data.forEach(function (thing) {
-        if (thing.getProperty('type') == 'crime') {
-            map.data.remove(thing);
-        }
-    })
+  map.data.forEach(function (thing) {
+    if (thing.getProperty('type') == 'crime') {
+      map.data.remove(thing);
+    }
+  })
 }
 
 function hideBike() {
-    map.data.forEach(function (thing) {
-        if (thing.getProperty('type') == 'bike') {
-            map.data.remove(thing);
-        }
-    })
-}
-
-function hideBusStops() {
-    map.data.forEach(function (thing) {
-        if (thing.getProperty('type') == 'busstops') {
-            map.data.remove(thing);
-        }
-    })
+  map.data.forEach(function (thing) {
+    if (thing.getProperty('type') == 'bike') {
+      map.data.remove(thing);
+    }
+  })
 }
 
 function hideBusRoutes() {
-    map.data.forEach(function (thing) {
-        if (thing.getProperty('type') == 'busroutes') {
-            map.data.remove(thing);
-        }
-    })
+  map.data.forEach(function (thing) {
+    if (thing.getProperty('type') == 'busroutes') {
+      map.data.remove(thing);
+    }
+  })
 }
+
+var toggle = function (a, b) {
+  var togg = false;
+  return function () {
+    // passes return value back to caller
+    return (togg = !togg) ? a() : b();
+  };
+};
 
 
 $(document).ready(function () {
@@ -454,11 +437,6 @@ $(document).ready(function () {
   }, function (){
       bike = 'off';
       return hideBike();
-  }));
-  $('#bus_stops').on('click', toggle (function (){
-      return add_busstops();
-  }, function (){
-      return hideBusStops();
   }));
   $('#bus_routes').on('click', toggle (function (){
       busRoute = 'on';
